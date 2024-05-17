@@ -3,10 +3,14 @@ package TestRun;
 import java.util.Arrays;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import org.testng.reporters.EmailableReporter;
+
 import BaseTest.Test1;
 import Page.HomePage;
 
+@Listeners(EmailableReporter.class)
 public class TestRunClass {
 	WebDriver driver;
 
