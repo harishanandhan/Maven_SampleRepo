@@ -1,17 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
+    <line>
+      <![CDATA[Click on First Name]]>
+    </line>
+    <line>
+      <![CDATA[Passed: Successfully Clicked on Name]]>
+    </line>
+    <line>
+      <![CDATA[Enter First Name And Last Name]]>
+    </line>
+    <line>
+      <![CDATA[Sucessfully Added First and Last Name]]>
+    </line>
+    <line>
+      <![CDATA[Enter Address in Address Box]]>
+    </line>
+    <line>
+      <![CDATA[Sucessfully Added Address in Address Box]]>
+    </line>
+    <line>
+      <![CDATA[Enter an Email]]>
+    </line>
+    <line>
+      <![CDATA[Sucessfully Added Email and Number]]>
+    </line>
+    <line>
+      <![CDATA[Click on Radio Button in Male]]>
+    </line>
+    <line>
+      <![CDATA[Click on Check Box in Hobbis.]]>
+    </line>
+    <line>
+      <![CDATA[Checkbox Clicked: Cricket, Checked: true]]>
+    </line>
+    <line>
+      <![CDATA[Checkbox Clicked: Movies, Checked: true]]>
+    </line>
+    <line>
+      <![CDATA[Checkbox Clicked: Hockey, Checked: true]]>
+    </line>
+    <line>
+      <![CDATA[Verify Language box Open or Close]]>
+    </line>
+    <line>
+      <![CDATA[Language box is opened]]>
+    </line>
+    <line>
+      <![CDATA[Passed: Successfully verify language box Opened state]]>
+    </line>
+    <line>
+      <![CDATA[To verify Languages list]]>
+    </line>
+    <line>
+      <![CDATA[Passed: Language names are equal as per language list]]>
+    </line>
   </reporter-output>
-  <suite started-at="2024-05-17T11:00:37 IST" name="Suite" finished-at="2024-05-17T11:01:13 IST" duration-ms="35990">
+  <suite started-at="2024-05-21T14:36:50 IST" name="Suite" finished-at="2024-05-21T14:37:22 IST" duration-ms="32186">
     <groups>
     </groups>
-    <test started-at="2024-05-17T11:00:37 IST" name="Default test" finished-at="2024-05-17T11:01:13 IST" duration-ms="35990">
+    <test started-at="2024-05-21T14:36:50 IST" name="TestScenario1" finished-at="2024-05-21T14:37:22 IST" duration-ms="32186">
       <class name="TestRun.TestRunClass">
-        <test-method signature="sample()[pri:0, instance:TestRun.TestRunClass@429bffaa]" started-at="2024-05-17T11:00:37 IST" name="sample" finished-at="2024-05-17T11:01:13 IST" duration-ms="35961" status="PASS">
+        <test-method signature="sample()[pri:0, instance:TestRun.TestRunClass@10d307f1]" started-at="2024-05-21T14:36:50 IST" name="sample" finished-at="2024-05-21T14:37:22 IST" duration-ms="32155" status="PASS">
           <reporter-output>
+            <line>
+              <![CDATA[Click on First Name]]>
+            </line>
+            <line>
+              <![CDATA[Passed: Successfully Clicked on Name]]>
+            </line>
+            <line>
+              <![CDATA[Enter First Name And Last Name]]>
+            </line>
+            <line>
+              <![CDATA[Sucessfully Added First and Last Name]]>
+            </line>
+            <line>
+              <![CDATA[Enter Address in Address Box]]>
+            </line>
+            <line>
+              <![CDATA[Sucessfully Added Address in Address Box]]>
+            </line>
+            <line>
+              <![CDATA[Enter an Email]]>
+            </line>
+            <line>
+              <![CDATA[Sucessfully Added Email and Number]]>
+            </line>
+            <line>
+              <![CDATA[Click on Radio Button in Male]]>
+            </line>
+            <line>
+              <![CDATA[Click on Check Box in Hobbis.]]>
+            </line>
+            <line>
+              <![CDATA[Checkbox Clicked: Cricket, Checked: true]]>
+            </line>
+            <line>
+              <![CDATA[Checkbox Clicked: Movies, Checked: true]]>
+            </line>
+            <line>
+              <![CDATA[Checkbox Clicked: Hockey, Checked: true]]>
+            </line>
+            <line>
+              <![CDATA[Verify Language box Open or Close]]>
+            </line>
+            <line>
+              <![CDATA[Language box is opened]]>
+            </line>
+            <line>
+              <![CDATA[Passed: Successfully verify language box Opened state]]>
+            </line>
+            <line>
+              <![CDATA[To verify Languages list]]>
+            </line>
+            <line>
+              <![CDATA[Passed: Language names are equal as per language list]]>
+            </line>
           </reporter-output>
         </test-method> <!-- sample -->
       </class> <!-- TestRun.TestRunClass -->
-    </test> <!-- Default test -->
+    </test> <!-- TestScenario1 -->
   </suite> <!-- Suite -->
 </testng-results>

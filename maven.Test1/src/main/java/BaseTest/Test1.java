@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Reporter;
 import org.testng.asserts.SoftAssert;
 
 public class Test1 {
@@ -39,11 +40,11 @@ public class Test1 {
 	}
 
 	public void event(String message) {
-		System.out.println(message);
+		Reporter.log(message);
 	}
 
 	public void message(String message, boolean screenShot) {
-		System.out.println(message);
+		Reporter.log(message);
 	}
 
 	public static boolean verifyWebElementTextEquals(WebDriver driver, WebElement element, String expectedText) {
@@ -95,11 +96,11 @@ public class Test1 {
 		 
 	// Example Log class for logging
 	public static void message(String msg) {
-		System.out.println("Passed: " + msg);
+		Reporter.log("Passed: " + msg);
 	}
 
 	public static void failsoft(String msg) {
-		System.out.println("Fail: " + msg);
+		Reporter.log("Fail: " + msg);
 	}
 }
 	    
