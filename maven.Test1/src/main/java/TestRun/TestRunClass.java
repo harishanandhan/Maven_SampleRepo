@@ -3,12 +3,10 @@ package TestRun;
 import java.util.Arrays;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import BaseTest.Test1;
 import Page.HomePage;
-import dev.failsafe.internal.util.Assert;
 
 public class TestRunClass {
 	WebDriver driver;
@@ -32,7 +30,6 @@ public class TestRunClass {
 		HomePage homepage = new HomePage(driver);
 		Test1.softAssertThat(homepage.clickName(), 
 				"Successfully Clicked on Name", "Unable to Click on Name");
-		//homepage.clickName();
 		homepage.enterFirstAndLastName(firstName, lastName);
 		homepage.enterAddress(address, true);
 		homepage.hoverEmailBox(hoverName);
