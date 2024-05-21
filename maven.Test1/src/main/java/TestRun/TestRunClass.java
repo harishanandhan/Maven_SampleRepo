@@ -5,12 +5,11 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import org.testng.reporters.EmailableReporter;
 
 import BaseTest.Test1;
 import Page.HomePage;
+import dev.failsafe.internal.util.Assert;
 
-@Listeners(EmailableReporter.class)
 public class TestRunClass {
 	WebDriver driver;
 
@@ -31,7 +30,9 @@ public class TestRunClass {
 		Test1 test1 = new Test1(driver);
 		driver = test1.launchBrowser();
 		HomePage homepage = new HomePage(driver);
-		homepage.clickName();
+		Test1.softAssertThat(homepage.clickName(), 
+				"Successfully Clicked on Name", "Unable to Click on Name");
+		//homepage.clickName();
 		homepage.enterFirstAndLastName(firstName, lastName);
 		homepage.enterAddress(address, true);
 		homepage.hoverEmailBox(hoverName);
@@ -42,10 +43,13 @@ public class TestRunClass {
 		// homepage.clickCheckBox("Movies");
 		homepage.clickRadioButton("male");
 		homepage.clickOnMultipleCheckBox();
-		homepage.verifyLanguageBoxOpen();
-		languagesNameList.equals(homepage.toGetLanguagesList());
+		Test1.softAssertThat(homepage.verifyLanguageBoxOpen(), 
+				"Successfully verify language box Opened state", "Unable to verify language box Open state");
+		Test1.softAssertThat(languagesNameList.equals(homepage.toGetLanguagesList()), 
+				"Language names are equal as per language list", "Language name is not equal as per language list");
+		//languagesNameList.equals(homepage.toGetLanguagesList());
 		homepage.clickLanguages(languagesToSelect);
-		//driver.quit();
+		driver.quit();
 	}
 
 }

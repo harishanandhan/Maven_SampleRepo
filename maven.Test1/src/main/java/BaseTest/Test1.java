@@ -10,9 +10,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
 
 public class Test1 {
 	public WebDriver driver;
+	public static SoftAssert softAssert = new SoftAssert();
 
 	public Test1(WebDriver driver) {
 		// TODO Auto-generated constructor stub
@@ -77,4 +79,31 @@ public class Test1 {
 		return false; // Timeout reached
 	}
 	
-}
+	 public static void softAssertThat(boolean status, String passMsg, String failMsg) {
+	        if (!status) {
+	        	Test1.failsoft(failMsg);
+	            softAssert.fail(failMsg);
+	        } else {
+	        	Test1.message(passMsg);
+	        }
+	    }
+
+	    // Method to assert all collected assertions at the end
+		
+	 public static void assertAll() { 
+		 softAssert.assertAll(); 
+	 	}
+		 
+
+	// Example Log class for logging
+	    public static void message(String msg) {
+	        System.out.println("Passed: " + msg);
+	    }
+
+	    public static void failsoft(String msg) {
+	        System.out.println("Fail: " + msg);
+	    }
+	}
+	    
+	
+

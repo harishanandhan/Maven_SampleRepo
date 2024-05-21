@@ -70,8 +70,14 @@ public class HomePage {
 		PageFactory.initElements(finder, this);
 	}
 	
-	public void clickName() { 	  
-		  test1.click(clickFirstPlace);
+	public boolean clickName() { 	
+		boolean Status = false;
+		test1.clickJS(driver, clickFirstPlace);
+			if (Test1.waitForElement(driver, clickFirstPlace, 10)) {
+				Status = true;
+				test1.event("Click on First Name");
+			} else test1.event("Unable to Click on First Name");
+			return Status;
 		  }
 	 
 	public void enterFirstAndLastName(String name1, String name2) {
