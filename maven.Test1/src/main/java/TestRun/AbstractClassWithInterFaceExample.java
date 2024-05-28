@@ -27,8 +27,8 @@ class Car extends vehicle {
 }
 
 @Test
-public class AbstractClassExample2 {
-	public void abstract2() {
+public class AbstractClassWithInterFaceExample {
+	public void abstract1() {
 		Car car = new Car();
 		
 		car.fuel();

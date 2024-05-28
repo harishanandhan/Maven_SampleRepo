@@ -27,7 +27,7 @@ class Cat extends Animal {
 }
 
 @Test
-public class AbstractClassExample1 {
+public class AbstractClassExample {
 	public void abstract1() {
 
 		Dog dog = new Dog();
