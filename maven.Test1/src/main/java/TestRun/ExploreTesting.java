@@ -84,6 +84,7 @@ public class ExploreTesting {
 	
 	@Test
 	public void continueExample() {
+		System.out.println("Print the odd number 1 to 10:\n");
 		for (int i = 1; i <= 10; i++) { // Using for loop
 			if (i % 2 == 0) {
 				continue;
@@ -104,5 +105,87 @@ public class ExploreTesting {
 			i++;
 		}
 	}
+	
+	@Test
+	public void nestedIf() {
+		String address = "Delhi, India";
+		if (address.endsWith("India")) {
+			if (address.contains("Meerut")) {
+				System.out.println("Your city is Meerut");
+			} else if (address.contains("Noida")) {
+				System.out.println("Your city is Noida");
+			} else {
+				System.out.println("You are living in " + address.split(",")[0]);
+			}
+		} else {
+			System.out.println("You are not living in India");
+		}
+	}    
+	
+	@Test
+	public void switchMethod() {
+		int num =5;
+		switch(num) {
+		case 0:
+			System.out.println("The num is 0");
+			break;
+		case 4:
+			System.out.println("The num is 4");
+			break;
+		default:
+			System.out.println("The number is " + num);
+		}
+	}
+	
+	@Test //for loop
+	public void forLoop() { 
+		int sum = 0;
+		for (int j = 1; j <= 10; j++) {
+			sum = sum + j;
+		}
+		System.out.println("The sum of first 10 natural number is " + sum);
+	}
+	
+	@Test //for each loop
+	public void forEachLoop() {
+		String[] names = { "Python", "C#", "Ruby", "C++", "Java" };
+		System.out.println("Printing the content of array names:\n");
+		for (String name : names) {
+			System.out.println(name);
+		}
+	}
+	
+	@Test //while Loop
+	public void whileLoop() {
+		int i = 0;
+		System.out.println("Printing the number of first 10 event numbers:\n");
+		while (i <= 10) {
+			System.out.println(i);
+			i = i + 2;
+		}
+	}
+	
+	@Test //do while loop
+	public void doWhileLoop() {
+		int i = 0;
+		System.out.println("Printing the number of first 10 event numbers:\n");
+		do {
+			System.out.println(i);
+			i = i + 2;
+		} while (i <= 10);
+	}
+	
+	@Test
+	public void continueStament() {
+		// TODO Auto-generated method stub
+		for (int i = 0; i <= 2; i++) {
+			for (int j = i; j <= 5; j++) {
+				if (j == 4) {
+					continue;
+				}
+				System.out.println(j);
+			}
+		}
+	}  
 	
 }
