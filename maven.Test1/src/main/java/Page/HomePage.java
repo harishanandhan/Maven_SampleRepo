@@ -1,8 +1,14 @@
 package Page;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -234,4 +240,17 @@ public class HomePage {
 			System.out.println("Language '" + languagesToClick + "' not found in this language box.");
 		}
 	}
+	
+	public boolean screenShot(boolean Screenshot) throws IOException {
+		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		
+		//Define The Destination Path
+		File destinationPath = new File ("D:/Preparation/screenshot.png");
+		
+		// Copy the screenshot to the destination path
+        FileUtils.copyFile(screenshot, destinationPath);
+        
+        System.out.println("Screenshot Saved at: " + destinationPath.getAbsolutePath());
+		return Screenshot;
+		}
 	}

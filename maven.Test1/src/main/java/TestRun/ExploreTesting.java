@@ -1,9 +1,34 @@
 package TestRun;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
+import org.apache.commons.io.FileUtils;
+import org.asynchttpclient.util.Assertions;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.Assertion;
+
+import Page.HomePage;
 
 public class ExploreTesting {
+	public enum Day {  Sun, Mon, Tue, Wed, Thu, Fri, Sat  }
+	public WebDriver driver;
+	
 	@Test
 	public void DataTypeExample() {
 		// Primitive data types
@@ -155,13 +180,41 @@ public class ExploreTesting {
 		}
 	}
 	
-	@Test //while Loop
+	@Test //while Loop for print odd or even number using if condition
 	public void whileLoop() {
-		int i = 0;
-		System.out.println("Printing the number of first 10 event numbers:\n");
-		while (i <= 10) {
+		int i = 1;
+		int count = 0;
+		System.out.println("Printing the number of first 10 even numbers:\n");
+		// count the odd or even number
+		while (count < 5) {         // increment count to print 5 or more than 5 odd or even number
+			if (i % 2 == 0) {       // print odd number means given like !=
+				System.out.println(i);
+				count++;
+			}
+			i++;
+		}
+	}
+	
+	@Test //while Loop for print odd and even number not using if condition
+	public void whileLoopOne() {
+		int i = 1;
+		int count = 0;
+		System.out.println("Printing the number of first 10 odd numbers:\n");
+		while (count < 5) {
 			System.out.println(i);
-			i = i + 2;
+			i += 2;
+			count++;
+		}
+	}
+	
+	@Test
+	public void forLoopEvenOrOdd() {
+		int count = 0;
+		for(int i = 1; count < 5; i++) {
+			if(i % 2 != 0) {
+				System.out.println(i);
+				count++;
+			}
 		}
 	}
 	
@@ -186,6 +239,505 @@ public class ExploreTesting {
 				System.out.println(j);
 			}
 		}
+	}
+	
+	@Test//Switch case with enum
+	public void SwitchEnumCase() {
+		Day[] DayNew = Day.values();
+		for (Day New : DayNew) {
+			switch (New) {
+			case Sun:
+				System.out.println("Sunday");
+				break;
+			case Mon:
+				System.out.println("Monday");
+				break;
+			case Tue:
+				System.out.println("Tuesday");
+				break;
+			case Wed:
+				System.out.println("Wednesday");
+				break;
+			case Thu:
+				System.out.println("Thursday");
+				break;
+			case Fri:
+				System.out.println("Friday");
+				break;
+			case Sat:
+				System.out.println("Saturday");
+				break;
+			}
+		}
+	}
+	
+	@Test //Pyramid
+	public void pyramid() {
+		for (int i = 1; i <= 5; i++) {
+			for (int j = 1; j <= i; j++) {
+				System.out.print("* ");
+			}
+			System.out.println();
+		}
+	}
+	
+	@Test //Pyramid
+	public void pyramidOne() {
+		int term = 6;
+		for (int i = 1; i <= term; i++) {
+			for (int j = term; j >= i; j--) {
+				System.out.print("* ");
+			}
+			System.out.println();
+		}
+	}
+	
+	@Test
+	public void labelled() {
+		// Using Label for outer and for loop
+		aa: for (int i = 1; i <= 3; i++) {
+			bb: for (int j = 1; j <= 3; j++) {
+				if (i == 2 && j == 2) {
+					break aa;
+				}
+				System.out.println(i + " " + j);
+			}
+		}
 	}  
 	
+	@Test
+	public void labelldedOne() {
+		aa: for (int i = 1; i <= 3; i++) {
+			bb: for (int j = 1; j <= 3; j++) {
+				if (i == 2 && j == 2) {
+					break bb;
+				}
+				System.out.println(i + " " + j);
+			}
+		}
+	}  
+	
+	@Test
+	public void BreakWhileExample() {
+		// while loop
+		int i = 1;
+		while (i <= 10) {
+			if (i == 5) {
+				// using break statement
+				i++;
+				break;// it will break the loop
+			}
+			System.out.println(i);
+			i++;
+		}
+	}  
+	
+	@Test //Window Handle and Tab Count
+	public void handleAndCount() {
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.amazon.in/");
+		
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		
+		//open new tab
+		js.executeScript("window.open('about:blank', '_blank');");
+		//js.executeScript("window.open('https://www.google.com', '_blank');");
+		
+		//switch to new tab and open google tab
+		Set<String> windowHandles = driver.getWindowHandles();
+		String newTabHandle = windowHandles.toArray()[1].toString();
+		driver.switchTo().window(newTabHandle);
+		driver.get("https://www.google.com");
+		
+		driver.switchTo().window(windowHandles.toArray()[0].toString());
+		
+		int numOfTab = driver.getWindowHandles().size();
+		System.out.println("The num of Tab: "+ numOfTab);
+		
+		driver.quit();
+	}
+	
+	@Test //Drag And Drop Sample
+	public void dragAndDrop() {
+		WebDriver driver = new ChromeDriver();
+		try {
+			driver.get("https://jqueryui.com/droppable/");  // ---> Drag and drop Sample URL 
+
+			// Switch to frame
+			driver.switchTo().frame(driver.findElement(By.cssSelector(".demo-frame")));
+
+			WebElement source = driver.findElement(By.id("draggable"));
+			WebElement target = driver.findElement(By.id("droppable"));
+
+			Actions action = new Actions(driver);
+			action.dragAndDrop(source, target).perform();
+
+			String text = target.getText();
+			if (text.equals("Dropped!")) {
+				System.out.println("Drag and Drop Successfull");
+			} else System.out.println("Drag and Drop Failed");
+
+		} finally {
+			driver.quit();
+		}
+	}
+	
+	@Test
+	public void alertExample() {
+		WebDriver driver = new ChromeDriver();
+		try {
+			driver.get("https://www.w3schools.com/js/tryit.asp?filename=tryjs_alert"); // --> Example - 1
+
+			// switch to frame
+			driver.switchTo().frame("iframeResult");
+
+			WebElement tryItButton1 = driver.findElement(By.xpath("//button[text()='Try it']"));
+			tryItButton1.click();
+
+			// Accept an alert
+			Alert alert = driver.switchTo().alert();
+			String alertText = alert.getText();
+			System.out.println("Alert Text: " + alertText);
+			alert.accept();
+			System.out.println("Alert Accepted");
+			
+			JavascriptExecutor js = (JavascriptExecutor) driver;  // --> Example - 2 Staring from new Tab creation
+			js.executeScript("window.open('about:blank', '_blank');");
+			
+			Set<String> windowhandles = driver.getWindowHandles();
+			String newTabHandle = windowhandles.toArray()[1].toString();
+			driver.switchTo().window(newTabHandle);
+			
+			// Open the confirmation alert example page
+			driver.get("https://www.w3schools.com/js/tryit.asp?filename=tryjs_confirm"); // --> Example - 2
+			driver.switchTo().frame("iframeResult");
+
+			WebElement tryItButton2 = driver.findElement(By.xpath("//button[text()='Try it']"));
+			tryItButton2.click();
+
+			// Dismiss a confirmation alert
+			Alert alert2 = driver.switchTo().alert();
+			alert2.dismiss();
+			System.out.println("Confirmation Alert Dismissed");
+			
+			JavascriptExecutor js1 = (JavascriptExecutor) driver;  // --> Example - 3 Staring from new Tab creation
+			js1.executeScript("window.open('about:blank', '_blank');");
+			
+			Set<String> windowhandle1 = driver.getWindowHandles();
+			String newTabHandle1 = windowhandle1.toArray()[2].toString();
+			driver.switchTo().window(newTabHandle1);
+
+			driver.get("https://www.w3schools.com/js/tryit.asp?filename=tryjs_prompt"); // --> Example - 3
+			driver.switchTo().frame("iframeResult");
+
+			WebElement tryItButton3 = driver.findElement(By.xpath("//button[text()='Try it']"));
+			tryItButton3.click();
+
+			// Send text to a prompt alert
+			Alert alert3 = driver.switchTo().alert();
+			alert3.sendKeys("Son Goku");
+			alert3.accept();
+			System.out.println("Text sent to prompt alert and accepted.");
+
+		} finally {
+			driver.quit();
+		}
+	}
+	
+	@Test
+	public void pageInfoExample() {
+		WebDriver driver = new ChromeDriver();
+		try {
+			driver.get("https://www.google.com");
+
+			String title = driver.getTitle();
+			System.out.println("Page Title: " + title);
+
+			String currentURL = driver.getCurrentUrl();
+			System.out.println("Current URL: " + currentURL);
+
+			String pageSource = driver.getPageSource();
+			System.out.println("Page Source: " + pageSource.substring(0, 200) + "..."); // --> Print the first 200 Characters
+																						 
+		} finally {
+			driver.quit();
+		}
+	}
+	
+	@Test
+	public void elemenInfo() throws InterruptedException {
+		WebDriver driver = new ChromeDriver();
+		try {
+			driver.get("http://the-internet.herokuapp.com");
+			
+			WebElement element = driver.findElement(By.linkText("A/B Testing"));
+			
+			boolean isVisible = element.isDisplayed();
+			System.out.println("Is element visible? " + isVisible);
+			
+			boolean isEnable = element.isEnabled();
+			System.out.println("Is element enabled? " + isEnable);
+			
+			String tagName = element.getTagName();
+			System.out.println("Tag Name is: " + tagName);
+			
+			String attributevalue = element.getAttribute("href");
+			System.out.println("The Attribute value is: " + attributevalue);
+			
+			element.click();
+			
+			Thread.sleep(2000);
+			String title = driver.getTitle();
+			System.out.println("The Page Title is: " + title);
+			
+			driver.navigate().to("http://the-internet.herokuapp.com/checkboxes");
+			
+//			JavascriptExecutor js = (JavascriptExecutor) driver;
+//			js.executeScript("window.open('about:blank', '_blank');");
+//			
+//			Set<String> windowHandle = driver.getWindowHandles();
+//			String newTabHandle = windowHandle.toArray()[1].toString();
+//			driver.switchTo().window(newTabHandle);
+//			driver.get("http://the-internet.herokuapp.com/checkboxes");
+			
+			WebElement checkBoxElement = driver.findElement(By.xpath("//form[@id='checkboxes']/input[1]"));
+			
+			boolean isSelected = checkBoxElement.isSelected();
+			System.out.println("Is Checkbox selected? " + isSelected);
+			
+			if(!isSelected) {
+				checkBoxElement.click();
+				System.out.println("CheckBox Selected");
+			}
+			
+			boolean isSelected1 = checkBoxElement.isSelected();
+			System.out.println("Is Check box is Selected now? " + isSelected1);
+			
+		} finally {
+			driver.quit();
+		}
+	}
+	
+	@Test //-------------> Menu Handling
+	public void dropDown() {
+		driver = new ChromeDriver();
+		try {
+			driver.get("http://the-internet.herokuapp.com/dropdown");
+			
+			// Locate the drop down element
+			WebElement dropdownElement = driver.findElement(By.xpath("//select[@id='dropdown']"));
+			
+			// create a select object from drop down element
+			Select select = new Select(dropdownElement);
+			select.selectByIndex(1);
+			System.out.println("Selected option by index: " + select.getFirstSelectedOption().getText());
+			
+			select.selectByValue("2");
+			System.out.println("Selected option by value: " + select.getFirstSelectedOption().getText());
+			
+			select.selectByVisibleText("Option 1");
+			System.out.println("Selected option by visible text: " + select.getFirstSelectedOption().getText());
+			
+		} finally {
+			driver.quit();
+		}
+	}
+	
+	@Test  //-----------> Key Board Actions
+	public void keyActions() {
+		driver = new ChromeDriver();
+		try {
+			driver.get("https://www.google.com");
+			
+			WebElement searchBox = driver.findElement(By.name("q"));
+			
+			Actions action = new Actions(driver);
+			searchBox.click();
+			
+			action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).perform();
+			System.out.println("Performed Ctrl+A");
+			
+			action.keyDown(Keys.SHIFT).sendKeys("Son Goku").keyUp(Keys.SHIFT).perform();
+			System.out.println("Typed Son Goku");
+			
+			action.sendKeys(Keys.ENTER).perform();
+			System.out.println("Pressed Enter");
+		} finally {
+			driver.quit();
+		}
+	}
+	
+	@Test //--------> Mouse Action
+	public void mouseAction() {
+		driver = new ChromeDriver();
+		try {
+			driver.get("http://the-internet.herokuapp.com/context_menu");
+
+			WebElement box = driver.findElement(By.id("hot-spot"));
+
+			Actions action = new Actions(driver);
+			action.contextClick(box).perform();
+			System.out.println("Performed right-click");
+			
+			Alert alert = driver.switchTo().alert();
+			alert.accept();
+			
+			action.clickAndHold(box).perform();
+			System.out.println("Clicked and held the element");
+
+			action.release(box).perform();
+			System.out.println("Released the mouse button");
+
+			action.clickAndHold(box).pause(2000).release().perform();
+			System.out.println("Clicked, held for 2 seconds, and released");
+		} finally {
+			driver.quit();
+		}
+	}
+	
+	@Test //-----------> Screenshot
+	public void screenShot() throws IOException {
+		driver = new ChromeDriver();
+		try {
+			//driver.get("https://www.wikipedia.org");
+			
+			// Take a Screen Shot
+			File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			
+			//Define The Destination Path
+			File destinationPath = new File ("D:/Preparation/screenshot.png");
+			
+			// Copy the screenshot to the destination path
+            FileUtils.copyFile(screenshot, destinationPath);
+            
+            System.out.println("Screenshot Saved at: " + destinationPath.getAbsolutePath());
+		} finally {
+			driver.quit();
+		}
+	}
+	
+	@Test //----------> Scroll Down By Pixel
+	public void scrollByPixels() {
+		driver = new ChromeDriver();
+		try {
+			driver.get("https://www.wikipedia.org");
+			
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			
+			js.executeScript("window.scrollBy(0, 1000)");
+			System.out.println("Scrolled down by 1000 pixels");
+		} finally {
+			driver.quit();
+		}
+	}
+	
+	@Test //-----------> Scroll To a Specific Element
+	public void ScrollToElement() throws InterruptedException, IOException {
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--start-maximized"); // Run in maximized window
+		driver = new ChromeDriver(options);
+		try {
+			driver.get("https://www.wikipedia.org");
+			Thread.sleep(2000);
+
+			WebElement element = driver.findElement(By.xpath("//*[@aria-label='Other projects']/div[7]/a/div[2]/span[2]"));
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+
+			js.executeScript("arguments[0].scrollIntoView(true);", element);
+			HomePage homepage = new HomePage(driver);
+			homepage.screenShot(true);
+			System.out.println("Scrolled to the element");
+		} finally {
+			driver.quit();
+		}
+	}
+	
+	@Test //-----------> Scroll to Bottom
+	public void ScrollToBottom() throws IOException {
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--headless"); // ------- Run in headless mode
+		options.addArguments("--disable-images");
+		options.setExperimentalOption("useAutomationExtension", false); // Disable automation extension
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); // Exclude automation switches
+		driver = new ChromeDriver(options);
+		try {
+			driver.get("https://www.wikipedia.org");
+
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+
+			js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+			HomePage homepage = new HomePage(driver);
+			homepage.screenShot(true);
+			System.out.println("Scrolled to the Bottom of the Page");
+		} finally {
+			driver.quit();
+		}
+	}
+	
+	@Test //-------------> Cookie Management
+	public void cookie() {
+		driver = new ChromeDriver();
+		try {
+			driver.get("https://www.wikipedia.org");
+			
+			// Get All Cookie
+			Set<Cookie> Cookies = driver.manage().getCookies();
+			System.out.println("Gell All Cookies");
+			for (Cookie cookie : Cookies) {
+				System.out.println(cookie);
+			}
+			
+			// Get Cookie Name
+			Cookie specificCookie = driver.manage().getCookieNamed("GeoIP");
+			if (specificCookie!=null) {
+			System.out.println("Specific cookie: " + specificCookie);
+			} else System.out.println("Specific cookie not found");
+			
+			// Add new Cookie with Value
+			//Cookie newCookieAdd = new Cookie("test_cookie", "test_value"); 
+			driver.manage().addCookie(new Cookie("test_cookie", "test_value"));
+			System.out.println("New Cookie added");
+			
+			// Get the Added cookie and Print
+			Cookie addedCookie = driver.manage().getCookieNamed("test_cookie");
+			System.out.println("Added Cookie: " + addedCookie);
+			
+			// Delete the specific cookie name
+			driver.manage().deleteCookieNamed("test_cookie");
+			System.out.println("Cookie 'test_cookie' deleted");
+			
+			// Verify Cookie is deleted
+			Cookie deleteCookie = driver.manage().getCookieNamed("test_cookie");
+			if(deleteCookie==null) {
+				System.out.println("Cookie 'test_cookie' is deleted successfully");
+			}
+			
+			// Delete All Cookie
+			driver.manage().deleteAllCookies();
+			System.out.println("All Cookie Deleted");
+		} finally {
+			driver.quit();
+		}
+	}
+	
+	@Test //  -----------> Uploading file
+	public void uploadFile() throws IOException {
+		driver = new ChromeDriver();
+		try {
+			driver.get("http://the-internet.herokuapp.com/upload");
+			File uploadFile = new File ("D:/Preparation/Selenium.pdf");
+			
+			WebElement upload = driver.findElement(By.xpath("//input[@name='file']"));
+			upload.sendKeys(uploadFile.getAbsolutePath());
+			
+			driver.findElement(By.xpath("//input[@type='submit']")).click();
+			
+			WebElement uploadedFile = driver.findElement(By.id("uploaded-files"));
+			Assert.assertEquals("Selenium.pdf", uploadedFile.getText());
+			HomePage homepage = new HomePage(driver);
+			homepage.screenShot(true);
+		} finally {
+			driver.quit();
+		}
+	}
 }
