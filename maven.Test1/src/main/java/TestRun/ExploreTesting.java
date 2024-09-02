@@ -1,11 +1,20 @@
 package TestRun;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+
 import org.apache.commons.io.FileUtils;
-import org.asynchttpclient.util.Assertions;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
@@ -21,7 +30,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.Assertion;
 
 import Page.HomePage;
 
@@ -740,4 +748,119 @@ public class ExploreTesting {
 			driver.quit();
 		}
 	}
+	
+	@Test // -------------> Create the Excel Sheet
+	public void createExcel() throws IOException {
+		try (// Blank Workbook
+				XSSFWorkbook workbook = new XSSFWorkbook()) {
+			// Create a blank Excel sheet
+			XSSFSheet sheet = workbook.createSheet("Student Details");
+
+			// Creating an empty TreeMap of string and Object][] type
+			Map<String, Object[]> data = new TreeMap<String, Object[]>();
+
+			// Writing data to Object[]
+			// using put() method
+			data.put("1", new Object[] { "ID", "Name", "LastName" });
+			data.put("2", new Object[] { "1", "Son", "Goku" });
+			data.put("3", new Object[] { "2", "Goku", "San" });
+			data.put("4", new Object[] { "3", "Vegeta", "San" });
+			data.put("5", new Object[] { "4", "Pan", "Chan" });
+
+			// Iterating over data and writing it to sheet
+			Set<String> keySet = data.keySet();
+
+			int rownum = 0;
+
+			for (String key : keySet) {
+				// Creating a new row in the sheet
+				Row row = sheet.createRow(rownum++);
+
+				Object[] objArr = data.get(key);
+
+				int cellnum = 0;
+
+				for (Object obj : objArr) {
+					// This line creates a cell in the next column of that row
+					Cell cell = row.createCell(cellnum++);
+
+					if (obj instanceof String)
+						cell.setCellValue((String) obj);
+					else if (obj instanceof Integer)
+						cell.setCellValue((Integer) obj);
+				}
+			}
+			try {
+				FileOutputStream out = new FileOutputStream(new File("D:/Preparation/sampletest.xlsx"));
+				workbook.write(out);
+				// Closing file output connections
+				out.close();
+
+				// Console message for successful execution of program
+				System.out.println("sampletest.xlsx written successfully on disk.");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Test // ------------> Read the Excel the sheet
+	public void readExcel() throws IOException{
+		try {
+			//File uploadFile = new File ("D:/Preparation/samplesheet.xlsx");
+			// Reading file from local directory
+			FileInputStream file = new FileInputStream(new File("D:/Preparation/samplesheet.xlsx"));
+			
+			XSSFWorkbook workbook = new XSSFWorkbook(file);
+			
+			// Get first/desired sheet from the workbook
+			XSSFSheet sheet = workbook.getSheetAt(0);
+			
+			// Iterate through each rows one by one
+			Iterator<Row> rowIterator = sheet.iterator();
+			
+			// Till there is an element condition holds true
+			while (rowIterator.hasNext()) {
+				
+				Row row = rowIterator.next();
+				
+				// For each row, iterate through all the columns
+				Iterator<Cell> cellIterator = row.cellIterator();
+				
+				while (cellIterator.hasNext()) {
+					
+					Cell cell = cellIterator.next();
+					
+					// Checking the cell type and format accordingly
+					switch (cell.getCellType()) { 
+					  
+                    // Case 1 
+                    case NUMERIC: 
+                        System.out.print(cell.getNumericCellValue() + "\t");
+                        break; 
+  
+                    // Case 2 
+                    case STRING: 
+                        System.out.print(cell.getStringCellValue() + "\t");
+                        break;
+                        
+                    default:
+                    	System.out.println("Unknown Type\t");
+                    	break;
+					}
+				}
+				System.out.println();
+			}
+			workbook.close();
+            file.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+//	public static void main(String[] args) {
+//		ExcelReader excelReader = new ExcelReader();
+//		excelReader.readExcel();
+//	}
+
 }

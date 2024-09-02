@@ -9,5 +9,5 @@ public class LearningTest {
 		System.out.println("Enter the value for Variable a");
 		a = scanner.nextLine();
 	}
-
+		
 }
