@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
-
 import BaseTest.Test1;
 import Page.HomePage;
 

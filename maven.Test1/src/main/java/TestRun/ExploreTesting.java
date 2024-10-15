@@ -340,6 +340,8 @@ public class ExploreTesting {
 		}
 	}  
 	
+	//  ------------------------------------------------------------ Selenium -----------------------------------------------------------------  //
+	
 	@Test //Window Handle and Tab Count
 	public void handleAndCount() {
 		WebDriver driver = new ChromeDriver();
@@ -862,5 +864,21 @@ public class ExploreTesting {
 //		ExcelReader excelReader = new ExcelReader();
 //		excelReader.readExcel();
 //	}
+	
+	@Test
+	public void reverseString() {
+		String str = "Geeks", nstr = "";
+		char ch;
+
+		System.out.print("Original word: ");
+		System.out.println("Geeks"); // Example word
+
+		for (int i = 0; i < str.length(); i++) {
+			ch = str.charAt(i); // extracts each character
+			nstr = ch + nstr; // adds each character in front of the existing string
+			int count = nstr.length();
+		}
+		System.out.println("Reversed word: " + nstr);
+	}
 
 }

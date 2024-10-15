@@ -45,10 +45,10 @@ public class HomePage {
 	@FindBy(css = "input[type='tel']")
 	WebElement givenNumber;
 	
-	@FindBy(xpath = "//*[@id=\"basicBootstrapForm\"]/div[5]/div/label[1]/input")
+	@FindBy(xpath = "//*[@id='basicBootstrapForm']//..//../label[1]/input")
 	WebElement radioButtonMale;
 	
-	@FindBy(xpath = "//*[@id=\"basicBootstrapForm\"]/div[5]/div/label[2]/input")
+	@FindBy(xpath = "//*[@id='basicBootstrapForm']//..//..//label[2]/input")
 	WebElement radioButtonFemale;
 	
 	@FindBy(xpath = "//input[@type='checkbox']")
