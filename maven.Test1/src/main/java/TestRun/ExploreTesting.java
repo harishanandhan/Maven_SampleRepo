@@ -877,6 +877,7 @@ public class ExploreTesting {
 			ch = str.charAt(i); // extracts each character
 			nstr = ch + nstr; // adds each character in front of the existing string
 			int count = nstr.length();
+			System.out.println("String Count: " + count);
 		}
 		System.out.println("Reversed word: " + nstr);
 	}
