@@ -5,11 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -30,7 +30,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import Page.HomePage;
 
 public class ExploreTesting {
@@ -880,6 +879,133 @@ public class ExploreTesting {
 			System.out.println("String Count: " + count);
 		}
 		System.out.println("Reversed word: " + nstr);
+	}
+
+	@Test
+	public void printSmallestNumber() {   //------------->>>>>>>>>>>> Print Smallest Numbers
+		int num[] = { 3, 4, 6, 2, 8 };
+
+		// Initialize smallest with the maximum value possible for an integer
+		int smallest = Integer.MAX_VALUE;
+
+		// Iterate over the array to find the smallest element
+		for (int i = 0; i < num.length; i++) {
+			if (num[i] < smallest) {
+				smallest = num[i];
+			}
+		}
+
+		// Output the smallest element
+		System.out.println("Smallest number is: " + smallest);
+	}
+	
+	@Test
+	public void printStringReverse() {    //------------->>>>>>>>>>>> Reverse String
+		String name = "I like You";
+		String reverse = " ";
+		String temp[] = name.split(" ");
+		for (int i = temp.length-1; i >= 0; i--) {
+			reverse = reverse + " " + temp[i];
+		}
+		System.out.println("Reverse String is: " + reverse);
+	}
+	
+	@Test
+	public void reverseStringAndWord() {  //------------->>>>>>>>>>>> Reverse String Word
+		String input = "hello world";
+
+		// Split the input string into words
+		String words[] = input.split(" ");
+
+		
+		// Iterate over each word in the array
+		for (int i = 0; i < words.length; i++) {
+			String word = words[i];
+			String reversedWord = "";
+
+			// Reverse the current word using a for loop
+			for (int j = word.length() - 1; j >= 0; j--) {
+				reversedWord = reversedWord + word.charAt(j); // Append each character in reverse order
+			}
+
+			// Print the reversed word followed by a space (except for the last word)
+			System.out.print(reversedWord);
+			if (i < words.length - 1) {
+				System.out.print(" "); // Only print a space between words
+			}
+		}
+	}
+	
+	@Test
+	public void findOccurence() {
+		String input = "hello world";
+
+		Map<Character,Integer> OccurenceCount= new HashMap<>();
+		
+		for(int i=0;i<input.length();i++)
+		{
+			if(OccurenceCount.containsKey(input.charAt(i))==true) {
+				
+			}
+		}
+		
+	}
+	
+	@Test
+	public void occurencePrgm() {
+		// Input string
+		String input = "hello world";
+
+		// Array to store the count of characters, assuming ASCII characters
+		int[] charCount = new int[256]; // ASCII size
+
+		// Iterate through each character of the string
+		for (int i = 0; i < input.length(); i++) {
+			char c = input.charAt(i);
+
+			// If the character is not a space, increment its count in the array
+			if (c != ' ') {
+				charCount[c]++;
+			}
+		}
+
+		// Display the frequency of each character
+		System.out.println("Character occurrence in the string: ");
+		for (int i = 0; i < 256; i++) {
+			if (charCount[i] > 0) {
+				System.out.println((char) i + ": " + charCount[i]);
+			}
+		}
+	}
+		
+	@Test
+	public void CharacterOccurrence() {  //------------------>>>>>>>>>>>>>>>>>>>>>> Occurence Program
+		// Input string
+		String input = "hello world";
+
+		// Loop through each character in the string
+		for (int i = 0; i < input.length(); i++) {
+			char currentChar = input.charAt(i);
+
+			// Skip space characters
+			if (currentChar == ' ') {
+				continue;
+			}
+
+			int count = 0;
+			// Count occurrences of currentChar in the entire string
+			for (int j = 0; j < input.length(); j++) {
+				if (input.charAt(j) == currentChar) {
+					count++;
+				}
+			}
+
+			// Print the character and its count
+			System.out.println(currentChar + ": " + count);
+
+			// To avoid counting the same character again, replace it with a space
+			input = input.replace(currentChar, ' ');
+		}
 	}
 
 }
